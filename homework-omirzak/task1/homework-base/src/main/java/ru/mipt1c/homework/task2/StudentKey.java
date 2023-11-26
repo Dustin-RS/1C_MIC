@@ -1,10 +1,10 @@
-package ru.mipt1c.homework.tests.task1;
+package ru.mipt1c.homework.task2;
 
-import java.io.Serializable;
 /**
- * Класс-ключ, по которому можно однозначно идентифицировать объект типа {@link Student}.
+ * Класс-ключ, по которому можно однозначно идентифицировать объект типа Student.
+ *
  */
-public class StudentKey implements Comparable<StudentKey>, Serializable{
+public class StudentKey implements Comparable<StudentKey> {
     private final int groupId;
     private final String name;
 

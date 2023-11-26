@@ -1,4 +1,4 @@
-package ru.mipt1c.homework.task1;
+package ru.mipt1c.homework.task2;
 
 public class MalformedDataException extends RuntimeException {
     public MalformedDataException() {

@@ -1,4 +1,4 @@
-package ru.mipt1c.homework.tests.task1;
+package ru.mipt1c.homework.task2;
 
 import org.apache.commons.io.FileUtils;
 
@@ -8,7 +8,12 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class StorageTestUtils {
-    public static final ThreadLocal<Calendar> CALENDAR = ThreadLocal.withInitial(Calendar::getInstance);
+    public static final ThreadLocal<Calendar> CALENDAR = new ThreadLocal<Calendar>() {
+        @Override
+        protected Calendar initialValue() {
+            return Calendar.getInstance();
+        }
+    };
 
     private StorageTestUtils() {
         // Cannot instantiate
@@ -32,15 +37,19 @@ public class StorageTestUtils {
         }
     }
 
+    @FunctionalInterface
+    public interface Callback<T> {
+        void callback(T t) throws Exception;
+    }
+
     public static Date date(int year, int month, int day) {
         Calendar calendar = CALENDAR.get();
         calendar.set(year, month, day);
         return calendar.getTime();
     }
 
-    @SafeVarargs
     public static <T> void assertFullyMatch(Iterator<T> iterator, T... items) {
-        assertFullyMatch(iterator, new HashSet<>(Arrays.asList(items)));
+        assertFullyMatch(iterator, new HashSet<T>(Arrays.<T>asList(items)));
     }
 
     public static <T> void assertFullyMatch(Iterator<T> iterator, Set<T> set) {
@@ -58,7 +67,7 @@ public class StorageTestUtils {
         }
     }
 
-    public static long measureTime(Measurable function) {
+    public static long measureTime(Measureable function) {
         long startTime = System.currentTimeMillis();
         function.doSomething();
         long endTime = System.currentTimeMillis();
@@ -66,12 +75,7 @@ public class StorageTestUtils {
     }
 
     @FunctionalInterface
-    public interface Callback<T> {
-        void callback(T t) throws Exception;
-    }
-
-    @FunctionalInterface
-    public interface Measurable {
+    public interface Measureable {
         void doSomething();
     }
 }

@@ -1,4 +1,4 @@
-package ru.mipt1c.homework.task1;
+package ru.mipt1c.homework.task2;
 
 import java.io.Closeable;
 import java.util.Iterator;
